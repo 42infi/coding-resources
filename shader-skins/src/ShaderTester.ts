@@ -38,7 +38,8 @@ export default class ShaderTester {
 
     lastTime: number;
     deltaTime: number;
-
+    timeSinceLastKill: number;
+    print: number;
 
     constructor(shaderName: string) {
 
@@ -97,11 +98,19 @@ export default class ShaderTester {
             this.texture.flipY = false;
             this.texture.generateMipmaps = false;
             this.material.uniforms["uChannel0"].value = this.texture;
-        });
+        }, (print: number) => {
+          this.print = print;
+          this.material.uniforms["uPrint"].value = this.print;
+        }, () => {
+          this.timeSinceLastKill = 0;
+        }
+        );
 
 
         this.lastTime = performance.now();
         this.deltaTime = 0;
+        this.timeSinceLastKill = 0;
+        this.print = 1;
 
         this.animate();
     }
@@ -129,9 +138,11 @@ export default class ShaderTester {
         }
 
         const uniforms = {
-            uTime: {value: 1}, // start with 1 to avoid potential divisions by 0
-            uResolution: {value: new Vector2(window.innerWidth, window.innerHeight)},
-            uChannel0: {value: this.texture ? this.texture : await this.textureLoader.loadAsync("./images/missing.png")},
+            uTime: { value: 1 }, // start with 1 to avoid potential divisions by 0
+            uResolution: { value: new Vector2(window.innerWidth, window.innerHeight) },
+            uChannel0: { value: this.texture ? this.texture : await this.textureLoader.loadAsync("./images/missing.png") },
+            uPrint: { value: 1 },
+            uTimeSinceLastKill: { value: 0 },
         };
 
         const shaderMaterial = new ShaderMaterial({
@@ -143,6 +154,8 @@ export default class ShaderTester {
         this.mesh.onBeforeRender = () => {
             // do not adjust this multiplier and scale the time in the shader instead
             uniforms.uTime.value += 1.2 * this.deltaTime;
+            this.timeSinceLastKill += this.deltaTime;
+            uniforms.uTimeSinceLastKill.value = this.timeSinceLastKill;
         }
 
         this.mesh.material = shaderMaterial;
