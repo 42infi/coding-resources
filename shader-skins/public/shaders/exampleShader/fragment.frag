@@ -4,8 +4,8 @@ uniform float uTime;
 uniform vec3 uResolution;
 uniform sampler2D uChannel0;
 
-#define timeScale 1.0;
-#define scaling 2.0; // smaller = larger pattern
+#define timeScale 1.0
+#define scaling 2.0 // smaller = larger pattern
 
 varying vec2 vUv;
 
