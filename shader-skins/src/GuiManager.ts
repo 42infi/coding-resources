@@ -1,18 +1,20 @@
-import {Weapon} from "./Weapons";
+import { Weapon } from "./Weapons";
 
 export default class GuiManager {
-
     elements: { [id: string]: HTMLElement | undefined } = {
         weaponSelector: undefined,
         textureDropZone: undefined,
         textureInput: undefined,
-    }
+        timeSinceLastKillReset: undefined,
+        printSelector: undefined,
+    };
 
     constructor(
         onModelChange: (weapon: string) => Promise<void>,
         onTextureChange: (texture: string) => void,
+        onPrintChange: (print: number) => void,
+        onTimeSinceLastKillReset: () => void,
     ) {
-
         for (let elementId in this.elements) {
             this.elements[elementId] = document.getElementById(elementId);
         }
@@ -64,7 +66,7 @@ export default class GuiManager {
                 event.preventDefault();
                 event.dataTransfer.dropEffect = items.some((item) => item.type.startsWith("image/")) ? "copy" : "none";
             }
-        })
+        });
 
         const fileCallback = (file: File) => {
             const url = URL.createObjectURL(file);
@@ -83,8 +85,22 @@ export default class GuiManager {
             if (textureInput.files[0] && textureInput.files[0].type.startsWith("image/")) {
                 fileCallback(textureInput.files[0]);
             }
-        })
+        });
+
+        const timeSinceLastKillResetButton = this.elements
+            .timeSinceLastKillReset as HTMLButtonElement;
+
+        timeSinceLastKillResetButton.addEventListener("click", () => {
+            onTimeSinceLastKillReset();
+        });
+
+        const printSelector = this.elements.printSelector as HTMLInputElement;
+
+        printSelector.addEventListener("input", () => {
+            const value = Math.floor(parseInt(printSelector.value));
+            if (isFinite(value)) {
+                onPrintChange(value);
+            }
+        });
     }
-
-
 }

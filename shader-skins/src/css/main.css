@@ -196,3 +196,93 @@ select option:checked {
 #textureDropZone input {
     display: none;
 }
+
+#timeSinceLastKillReset {
+    width: 220px;
+    display: block;
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+
+    padding: 10px;
+
+    border-radius: var(--corner-rounding);
+
+    background: linear-gradient(
+            180deg,
+            rgba(var(--dark-color), 0.85),
+            rgba(var(--darker-color), 0.95)
+    );
+
+    color: rgb(var(--text-color));
+    font-size: 14px;
+    font-weight: 500;
+
+    cursor: pointer;
+    outline: none;
+    border: none;
+    text-align: center;
+}
+
+.input-wrapper {
+    position: relative;
+    display: flex;
+    width: 220px;
+}
+
+.input-wrapper div {
+    display: block;
+    width: calc(40% - 40px);
+    margin-right: 0;
+    padding: 10px;
+    padding-left: 14px;
+
+    border-radius: var(--corner-rounding);
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+
+    background: linear-gradient(
+            180deg,
+            rgb(var(--dark-color)),
+            rgb(var(--darker-color))
+    );
+
+    color: rgb(var(--text-color));
+    font-size: 14px;
+    font-weight: 500;
+    height: 17px;
+}
+
+.input-wrapper input {
+    display: block;
+    margin-left: 0;
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+
+    width: 60%;
+    height: 17px;
+    padding: 10px;
+    padding-right: 14px;
+
+    border-radius: var(--corner-rounding);
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+
+    border: none;
+
+    background: linear-gradient(
+            180deg,
+            rgb(var(--dark-color)),
+            rgb(var(--darker-color))
+    );
+
+    color: rgb(var(--text-color));
+    font-size: 14px;
+    font-weight: 500;
+
+    cursor: pointer;
+    outline: none;
+
+    text-align: right;
+}
