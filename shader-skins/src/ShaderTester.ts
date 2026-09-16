@@ -52,7 +52,7 @@ export default class ShaderTester {
             antialias: false,
             powerPreference: "high-performance",
             precision: "lowp",
-            alpha: false,
+            alpha: true,
         });
 
         this.renderer.setSize(window.innerWidth, window.innerHeight);
@@ -103,7 +103,13 @@ export default class ShaderTester {
           this.material.uniforms["uPrint"].value = this.print;
         }, () => {
           this.timeSinceLastKill = 0;
-        }
+        }, async (shader: string) => {
+            this.shaderName = shader;
+            this.texture = undefined; 
+            if (this.mesh) {
+                await this.createMaterial();
+            }
+        }, this.shaderName
         );
 
 
