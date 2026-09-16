@@ -12,6 +12,14 @@
 <body>
 <canvas id="threeCanvas"></canvas>
 <script type="module" src="/src/main.ts"></script>
+<div class="shader-settings">
+    <div class="select-wrapper">
+        <select id="shaderSelector">
+        </select>
+    </div>
+    <button id="shaderPrevBtn" class="nav-btn" title="Previous Shader" aria-label="Previous Shader">&#9664;</button>
+    <button id="shaderNextBtn" class="nav-btn" title="Next Shader" aria-label="Next Shader">&#9654;</button>
+</div>
 <div class="settings-wrapper">
     <div class="select-wrapper">
         <select id="weaponSelector">
@@ -25,6 +33,29 @@
     <label class="input-wrapper" for="printSelector">
         <div>Print:</div><input id="printSelector" inputmode="numeric" step="1" value="1" size="6">
     </label>
+    <div class="bg-settings-container">
+        <div class="bg-settings-title">Background</div>
+        <div class="select-wrapper">
+            <select id="bgTypeSelector">
+                <option value="solid">Solid Color</option>
+                <option value="checker">Checkerboard</option>
+                <option value="image">Image</option>
+            </select>
+        </div>
+        <div id="bgSolidSettings" class="bg-settings-row">
+            <input id="bgColorPicker" type="color" value="#000000" class="color-picker-input">
+        </div>
+        <div id="bgCheckerSettings" class="bg-settings-row bg-checker-settings">
+            <input id="bgCheckerColor1" type="color" value="#6d6d6d" class="checker-color-input">
+            <input id="bgCheckerColor2" type="color" value="#000000" class="checker-color-input">
+        </div>
+        <div id="bgImageSettings" class="bg-settings-row">
+            <label class="image-upload-label">
+                Choose Image
+                <input id="bgImageInput" type="file" accept="image/*" style="display: none;">
+            </label>
+        </div>
+    </div>
 </div>
 </body>
 </html>
